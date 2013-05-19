@@ -21,6 +21,8 @@ if has('gui_running')
 	"highlight SpecialKey guibg=NONE guifg=#cccccc
 else
 	set t_Co=256
+	set cursorline
+	hi CursorLine cterm=BOLD ctermbg=8
 endif
 
 set colorcolumn=80
@@ -104,7 +106,8 @@ set mouse=a  " Mouse in all modesc
 " ctags/cscope config by sanjay
 nmap ,t :!(cd %:p:h;ctags *.[ch])&
 " set tags=./tags,../tags
-let &tags=getcwd() . '/tags'
+" let &tags=getcwd() . '/tags'
+set tags=./tags
 if has("cscope") && filereadable("/usr/bin/cscope")
   set csprg=/usr/bin/cscope
   set csto=0
@@ -254,3 +257,20 @@ set statusline+=%-40f\                    " path
 set statusline+=%=%1*%y%*%*\              " file type
 set statusline+=%10((%l,%c)%)\            " line and column
 set statusline+=%P/%L                     " percentage of file
+
+function! CCustomFuncHighlight()
+	syn match    cCustomParen    "?=(" contains=cParen,cCppParen
+	syn match    cCustomFunc     "\w\+\s*(\@=" contains=cCustomParen
+	syn match    cCustomScope    "::"
+	syn match    cCustomClass    "\w\+\s*::" contains=cCustomScope
+	hi def link cCustomFunc  Function
+	hi def link cCustomClass Function
+endfunction
+
+autocmd BufRead,BufNewFile *.c,*.h,*.cpp,*.cxx call CCustomFuncHighlight()
+
+" Bundles
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+Bundle 'terryma/vim-multiple-cursors'

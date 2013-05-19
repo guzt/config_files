@@ -1,4 +1,4 @@
-if ! [ -z "$PS1" ] && ! [[ x$TERM =~ xscreen.* ]]; then
+if ! [ -z "$PS1" ] && ! [[ x$TERM =~ xscreen.* ]] && [ -z $TMUX ]; then
 	echo -n 'Run screen? [Y/n] '
 	read -n 1 SCREENYN
 	if [ x$SCREENYN != xn ] && [ x$SCREENYN != xN ]; then
@@ -118,11 +118,11 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 alias scpr='rsync -r --partial --progress --rsh=ssh'
-alias cgrep="egrep --exclude-dir=html --exclude=tags --exclude=cscope.out -RI"
+alias cgrep="egrep --exclude-dir=html --exclude=tags --exclude=cscope.out --exclude=*.o.cmd -RIn"
 
-#X='◣'
-#PS1='${debian_chroot:+($debian_chroot)}\[\033[0;30;47m\]\t $(a=$?; if [ $UID == 0 ]; then echo -n "\[\033[0;37;45m\]'$X'\[\033[0;30;45m\] \u@\h \[\033[0;35;44m\]'$X'"; else echo -n "\[\033[0;37;46m\]'$X'\[\033[0;30;46m\] \u@\h \[\033[0;36;44m\]'$X'"; fi; echo -n "\[\033[0;30;44m\] \w "; if [ $a != 0 ]; then echo -n "\[\033[0;34;41m\]'$X'\[\033[0;30;41m\] $a \[\033[0;31m\]'$X'\[\033[0m\] "; else echo -n "\[\033[0;34m\]'$X'\[\033[0m\] "; fi; unset a)'
-PS1='${debian_chroot:+($debian_chroot)}\[\033[0;30;47m\]\t $(a=$?; if [ $UID == 0 ]; then echo -n "\[\033[0;30;45m\] \u@\h "; else echo -n "\[\033[0;30;46m\] \u@\h "; fi; echo -n "\[\033[0;30;44m\] \w "; if [ $a != 0 ]; then echo -n "\[\033[0;30;41m\] $a \[\033[0m\] "; else echo -n "\[\033[0m\] "; fi; unset a)'
+X='◣'
+PS1='${debian_chroot:+($debian_chroot)}\[\033[0;30;47m\]\t $(a=$?; if [ $UID == 0 ]; then echo -n "\[\033[0;37;45m\]'$X'\[\033[0;30;45m\] \u@\h \[\033[0;35;44m\]'$X'"; else echo -n "\[\033[0;37;46m\]'$X'\[\033[0;30;46m\] \u@\h \[\033[0;36;44m\]'$X'"; fi; echo -n "\[\033[0;30;44m\] \w "; if [ $a != 0 ]; then echo -n "\[\033[0;34;41m\]'$X'\[\033[0;30;41m\] $a \[\033[0;31m\]'$X'\[\033[0m\] "; else echo -n "\[\033[0;34m\]'$X'\[\033[0m\] "; fi; unset a)'
+#PS1='${debian_chroot:+($debian_chroot)}\[\033[0;30;47m\]\t $(a=$?; if [ $UID == 0 ]; then echo -n "\[\033[0;30;45m\] \u@\h "; else echo -n "\[\033[0;30;46m\] \u@\h "; fi; echo -n "\[\033[0;30;44m\] \w "; if [ $a != 0 ]; then echo -n "\[\033[0;30;41m\] $a \[\033[0m\] "; else echo -n "\[\033[0m\] "; fi; unset a)'
 
 if [ -f $HOME/.bashrc_local ]; then
 	. $HOME/.bashrc_local
