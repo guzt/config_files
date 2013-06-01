@@ -2,7 +2,7 @@ if ! [ -z "$PS1" ] && ! [[ x$TERM =~ xscreen.* ]] && [ -z $TMUX ]; then
 	echo -n 'Run screen? [Y/n] '
 	read -n 1 SCREENYN
 	if [ x$SCREENYN != xn ] && [ x$SCREENYN != xN ]; then
-		exec tmx init
+		exec $HOME/bin/tmx init
 	fi
 	echo
 fi

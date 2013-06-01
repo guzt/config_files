@@ -4,9 +4,12 @@ filetype plugin indent on
 set nocompatible  " no vi compatibility.
 set hlsearch
 set ignorecase
-"set nowrap
+set nowrap
 if has('gui_running')
-	set guifont=Ubuntu\ Mono\ 12
+	let g:Powerline_symbols = 'fancy'
+	set guifont=Ubuntu\ Mono\ 11
+	"set guifont=Monaco\ for\ Powerline\ 9
+	"set guifont=NovaMono\ 11
 	set guioptions+=a
 	set guioptions-=T "toolbar
 	set guioptions-=m "menubar
@@ -16,9 +19,10 @@ if has('gui_running')
 	"hi Normal guibg=#2C2C2C guifg=#DCDCCC
 	"set cursorcolumn
 	set background=light
-	colorscheme solarized
+	colorscheme github
 	"highlight CursorLineNr guibg=#eee8d5
 	"highlight SpecialKey guibg=NONE guifg=#cccccc
+	"set fullscreen
 else
 	set t_Co=256
 	set cursorline
@@ -273,4 +277,18 @@ autocmd BufRead,BufNewFile *.c,*.h,*.cpp,*.cxx call CCustomFuncHighlight()
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
+"Bundle 'FredKSchott/CoVim'
 Bundle 'terryma/vim-multiple-cursors'
+Bundle 'Lokaltog/vim-powerline'
+
+
+
+command -nargs=0 -bar Update if &modified 
+                           \|    if empty(bufname('%'))
+                           \|        browse write
+                           \|    else
+                           \|        write
+                           \|    endif
+                           \|endif
+nnoremap <silent> <C-S> :Update<CR>
+inoremap <silent> <C-S> <C-O>:Update<CR>
