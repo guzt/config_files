@@ -4,7 +4,9 @@ filetype plugin indent on
 set nocompatible  " no vi compatibility.
 set hlsearch
 set ignorecase
-set nowrap
+set wrap
+set scrolloff=5
+let g:netrw_sort_sequence='[\/]$,.*\.[ch][xp]*$,*'
 if has('gui_running')
 	let g:Powerline_symbols = 'fancy'
 	set guifont=Ubuntu\ Mono\ 11
@@ -19,11 +21,12 @@ if has('gui_running')
 	"hi Normal guibg=#2C2C2C guifg=#DCDCCC
 	"set cursorcolumn
 	set background=light
-	colorscheme github
+	colorscheme fruit
 	"highlight CursorLineNr guibg=#eee8d5
 	"highlight SpecialKey guibg=NONE guifg=#cccccc
 	"set fullscreen
 else
+	let g:Powerline_symbols = 'fancy'
 	set t_Co=256
 	set cursorline
 	hi CursorLine cterm=BOLD ctermbg=8
@@ -111,7 +114,8 @@ set mouse=a  " Mouse in all modesc
 nmap ,t :!(cd %:p:h;ctags *.[ch])&
 " set tags=./tags,../tags
 " let &tags=getcwd() . '/tags'
-set tags=./tags
+" set tags=./tags;/
+map <M-]> :tab split<CR>:tag <C-R>=expand("<cword>")<CR><CR>
 if has("cscope") && filereadable("/usr/bin/cscope")
   set csprg=/usr/bin/cscope
   set csto=0
@@ -184,14 +188,14 @@ if has("cscope") && filereadable("/usr/bin/cscope")
     " can be simulated roughly via:
     "    nmap <C-@>s <C-W><C-S> :cs find s <C-R>=expand("<cword>")<CR><CR>	
 
-  nmap <C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-@>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-@>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-@>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-@>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-@>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
-  nmap <C-@>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-  nmap <C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-@>s :tab scs find s <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-@>g :tab scs find g <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-@>c :tab scs find c <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-@>t :tab scs find t <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-@>e :tab scs find e <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-@>f :tab scs find f <C-R>=expand("<cfile>")<CR><CR>
+  nmap <C-@>i :tab scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+  nmap <C-@>d :tab scs find d <C-R>=expand("<cword>")<CR><CR>
 
 
     " Hitting CTRL-space *twice* before the search type does a vertical 
@@ -199,12 +203,12 @@ if has("cscope") && filereadable("/usr/bin/cscope")
     "
     " (Note: you may wish to put a 'set splitright' in your .vimrc
     " if you prefer the new window on the right instead of the left
-  nmap <C-@><C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-@><C-@>g :scs find g <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-@><C-@>c :scs find c <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-@><C-@>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
-  nmap <C-@><C-@>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-  nmap <C-@><C-@>d :scs find d <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-@><C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-@><C-@>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-@><C-@>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-@><C-@>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
+  nmap <C-@><C-@>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+  nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
 endif
 
 
@@ -252,15 +256,15 @@ set splitright
 
 
 
-set laststatus=2
-"set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
-set statusline=
-set statusline+=%<\                       " cut at start
-set statusline+=%2*[%n%H%M%R%W]%*\        " flags and buf no
-set statusline+=%-40f\                    " path
-set statusline+=%=%1*%y%*%*\              " file type
-set statusline+=%10((%l,%c)%)\            " line and column
-set statusline+=%P/%L                     " percentage of file
+"set laststatus=2
+""set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+"set statusline=
+"set statusline+=%<\                       " cut at start
+"set statusline+=%2*[%n%H%M%R%W]%*\        " flags and buf no
+"set statusline+=%-40f\                    " path
+"set statusline+=%=%1*%y%*%*\              " file type
+"set statusline+=%10((%l,%c)%)\            " line and column
+"set statusline+=%P/%L                     " percentage of file
 
 function! CCustomFuncHighlight()
 	syn match    cCustomParen    "?=(" contains=cParen,cCppParen
@@ -273,6 +277,7 @@ endfunction
 
 autocmd BufRead,BufNewFile *.c,*.h,*.cpp,*.cxx call CCustomFuncHighlight()
 
+
 " Bundles
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -280,8 +285,11 @@ Bundle 'gmarik/vundle'
 "Bundle 'FredKSchott/CoVim'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'jnurmine/Zenburn'
+"Bundle 'mbbill/code_complete'
+"Bundle 'bling/vim-airline'
 
-
+"let g:completekey='<A-p>'
 
 command -nargs=0 -bar Update if &modified 
                            \|    if empty(bufname('%'))
@@ -292,3 +300,15 @@ command -nargs=0 -bar Update if &modified
                            \|endif
 nnoremap <silent> <C-S> :Update<CR>
 inoremap <silent> <C-S> <C-O>:Update<CR>
+map <silent> <m-left> :ptprev<cr>
+map <silent> <m-right> :ptnext<cr>
+
+inoremap <silent> <M-h> <left>
+inoremap <silent> <M-j> <down>
+inoremap <silent> <M-k> <up>
+inoremap <silent> <M-l> <right>
+
+set ttimeout 
+
+set ssop-=options
+"set ssop-=folds

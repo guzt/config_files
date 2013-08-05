@@ -124,6 +124,9 @@ X='◣'
 PS1='${debian_chroot:+($debian_chroot)}\[\033[0;30;47m\]\t $(a=$?; if [ $UID == 0 ]; then echo -n "\[\033[0;37;45m\]'$X'\[\033[0;30;45m\] \u@\h \[\033[0;35;44m\]'$X'"; else echo -n "\[\033[0;37;46m\]'$X'\[\033[0;30;46m\] \u@\h \[\033[0;36;44m\]'$X'"; fi; echo -n "\[\033[0;30;44m\] \w "; if [ $a != 0 ]; then echo -n "\[\033[0;34;41m\]'$X'\[\033[0;30;41m\] $a \[\033[0;31m\]'$X'\[\033[0m\] "; else echo -n "\[\033[0;34m\]'$X'\[\033[0m\] "; fi; unset a)'
 #PS1='${debian_chroot:+($debian_chroot)}\[\033[0;30;47m\]\t $(a=$?; if [ $UID == 0 ]; then echo -n "\[\033[0;30;45m\] \u@\h "; else echo -n "\[\033[0;30;46m\] \u@\h "; fi; echo -n "\[\033[0;30;44m\] \w "; if [ $a != 0 ]; then echo -n "\[\033[0;30;41m\] $a \[\033[0m\] "; else echo -n "\[\033[0m\] "; fi; unset a)'
 
+alias delipv6='ip -o addr list  | grep inet6 | while read a b c d e; do sudo ip addr del $d dev $b; done'
+alias man='env LESS_TERMCAP_mb="\e[1;31m" LESS_TERMCAP_md="\e[1;31m" LESS_TERMCAP_me="\e[0m" LESS_TERMCAP_se="\e[0m" LESS_TERMCAP_so="\e[1;44;33m" LESS_TERMCAP_ue="\e[0m" LESS_TERMCAP_us="\e[1;32m" man'
+
 if [ -f $HOME/.bashrc_local ]; then
 	. $HOME/.bashrc_local
 fi
