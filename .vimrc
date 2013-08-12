@@ -5,11 +5,11 @@ set nocompatible  " no vi compatibility.
 set hlsearch
 set ignorecase
 set wrap
-set scrolloff=5
+set scrolloff=15
 let g:netrw_sort_sequence='[\/]$,.*\.[ch][xp]*$,*'
 if has('gui_running')
 	let g:Powerline_symbols = 'fancy'
-	set guifont=Ubuntu\ Mono\ 11
+	set guifont=Ubuntu\ Mono\ 13
 	"set guifont=Monaco\ for\ Powerline\ 9
 	"set guifont=NovaMono\ 11
 	set guioptions+=a
@@ -100,7 +100,7 @@ set showmatch  " Show matching brackets.
 set mat=5  " Bracket blinking.
 set list
 " Show $ at end of line and trailing space as ~
-set lcs=tab:¦\ ,trail:×,eol:¬,extends:»,precedes:«
+set lcs=tab:¦\ ,trail:░,eol:¬,extends:»,precedes:«
 "set lcs=tab:∣—,trail:×·,eol:¶,extends:￫,precedes:￩
 set novisualbell  " No blinking .
 set noerrorbells  " No noise.
@@ -307,6 +307,11 @@ inoremap <silent> <M-h> <left>
 inoremap <silent> <M-j> <down>
 inoremap <silent> <M-k> <up>
 inoremap <silent> <M-l> <right>
+inoremap <silent> <M-v> <C-o>v
+inoremap <silent> <M-u> <C-o>u
+inoremap <silent> <M-r> <C-o><C-r>
+inoremap <silent> <S-C-v> <C-o><C-v>
+
 
 set ttimeout 
 
